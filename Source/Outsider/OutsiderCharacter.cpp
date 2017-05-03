@@ -7,6 +7,7 @@
 #include "GameFramework/InputSettings.h"
 #include "Kismet/HeadMountedDisplayFunctionLibrary.h"
 #include "MotionControllerComponent.h"
+#include "Engine.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
@@ -130,6 +131,8 @@ void AOutsiderCharacter::SetupPlayerInputComponent(class UInputComponent* Player
 	PlayerInputComponent->BindAxis("TurnRate", this, &AOutsiderCharacter::TurnAtRate);
 	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
 	PlayerInputComponent->BindAxis("LookUpRate", this, &AOutsiderCharacter::LookUpAtRate);
+
+	PlayerInputComponent->BindAction("UseFS", IE_Pressed, this, &AOutsiderCharacter::UseFS);
 }
 
 void AOutsiderCharacter::OnFire()
@@ -291,4 +294,10 @@ bool AOutsiderCharacter::EnableTouchscreenMovement(class UInputComponent* Player
 		//PlayerInputComponent->BindTouch(EInputEvent::IE_Repeat, this, &AOutsiderCharacter::TouchUpdate);
 	}
 	return bResult;
+}
+
+void AOutsiderCharacter::UseFS()
+{
+	// Add collision detection/ray tracing/something
+	OnCandleLighted.Broadcast(1);
 }

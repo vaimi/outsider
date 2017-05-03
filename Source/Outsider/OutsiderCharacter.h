@@ -3,6 +3,8 @@
 #include "GameFramework/Character.h"
 #include "OutsiderCharacter.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCandleLighted, uint8, CandleID);
+
 class UInputComponent;
 
 UCLASS(config=Game)
@@ -44,6 +46,9 @@ class AOutsiderCharacter : public ACharacter
 
 public:
 	AOutsiderCharacter();
+
+	UPROPERTY(BlueprintAssignable)
+		FCandleLighted OnCandleLighted;
 
 protected:
 	virtual void BeginPlay();
@@ -135,5 +140,6 @@ public:
 	/** Returns FirstPersonCameraComponent subobject **/
 	FORCEINLINE class UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
 
+	void UseFS();
 };
 
