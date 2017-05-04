@@ -3,6 +3,7 @@
 #pragma once
 
 #include "Components/ActorComponent.h"
+#include "OutsiderCharacter.h"
 #include "Candle.generated.h"
 
 
@@ -19,11 +20,24 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
+private:
+	bool isLighted = false;
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-	bool isLighted = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+		uint8 CandleID = 0;
+	
+	UFUNCTION()
+		void WhenTriggered(uint8 triggerID);
+
 	void LightCandle();
+
+	UPROPERTY(VisibleAnywhere)
+	class UPointLightComponent* LeftLight;
+
+	UPROPERTY(VisibleAnywhere)
+	class UPointLightComponent* RightLight;
 	
 };
