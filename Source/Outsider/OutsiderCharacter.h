@@ -28,7 +28,7 @@ public:
 	AOutsiderCharacter();
 
 	UPROPERTY(BlueprintAssignable)
-		FCandleLighted OnCandleLighted;
+	FCandleLighted OnCandleLighted;
 
 protected:
 	virtual void BeginPlay();
