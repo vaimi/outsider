@@ -65,6 +65,8 @@ void AOutsiderCharacter::SetupPlayerInputComponent(class UInputComponent* Player
 	PlayerInputComponent->BindAxis("MoveForward", this, &AOutsiderCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &AOutsiderCharacter::MoveRight);
 
+	PlayerInputComponent->BindAction("Quit", IE_Pressed, this, &AOutsiderCharacter::QuitGame);
+
 	// We have 2 versions of the rotation bindings to handle different kinds of devices differently
 	// "turn" handles devices that provide an absolute delta, such as a mouse.
 	// "turnrate" is for devices that we choose to treat as a rate of change, such as an analog joystick
@@ -135,6 +137,11 @@ void AOutsiderCharacter::MoveRight(float Value)
 		// add movement in that direction
 		AddMovementInput(GetActorRightVector(), Value);
 	}
+}
+
+void AOutsiderCharacter::QuitGame()
+{
+	UKismetSystemLibrary::QuitGame(this->GetWorld(), nullptr, EQuitPreference::Quit);
 }
 
 void AOutsiderCharacter::TurnAtRate(float Rate)
