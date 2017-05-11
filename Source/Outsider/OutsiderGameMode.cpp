@@ -2,6 +2,7 @@
 
 #include "Outsider.h"
 #include "OutsiderGameMode.h"
+#include "GameFramework/InputSettings.h"
 #include "OutsiderHUD.h"
 #include "OutsiderCharacter.h"
 
