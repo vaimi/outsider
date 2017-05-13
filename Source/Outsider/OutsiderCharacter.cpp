@@ -8,6 +8,7 @@
 #include "Kismet/HeadMountedDisplayFunctionLibrary.h"
 #include "MotionControllerComponent.h"
 #include "Engine.h"
+#include "Candelabra.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
@@ -158,6 +159,47 @@ void AOutsiderCharacter::LookUpAtRate(float Rate)
 
 void AOutsiderCharacter::UseFS()
 {
-	// Add collision detection/ray tracing/something
-	OnCandleLighted.Broadcast(1);
+	FVector CameraLoc;
+	FRotator CameraRot;
+	GetActorEyesViewPoint(CameraLoc, CameraRot);
+
+	FVector Start = CameraLoc;
+
+	FHitResult RV_Hit(ForceInit);
+	FCollisionQueryParams RV_TraceParams = FCollisionQueryParams(FName(TEXT("RV_Trace")), true, this);
+	DoTrace(&RV_Hit, &RV_TraceParams);
+	ACandelabra* candelabra = Cast<ACandelabra>(RV_Hit.GetActor());
+	if(candelabra)
+	{
+		OnCandleLighted.Broadcast(candelabra->CandleID);
+	}
+
+	
+}
+
+bool AOutsiderCharacter::DoTrace(FHitResult* RV_Hit, FCollisionQueryParams* RV_TraceParams)
+{
+
+	// get the camera transform
+	FVector CameraLoc;
+	FRotator CameraRot;
+	GetActorEyesViewPoint(CameraLoc, CameraRot);
+
+	FVector Start = CameraLoc;
+	FVector End = CameraLoc + (CameraRot.Vector() * PlayerInteractionDistance);
+
+	RV_TraceParams->bTraceComplex = true;
+	RV_TraceParams->bTraceAsyncScene = true;
+	RV_TraceParams->bReturnPhysicalMaterial = true;
+
+	//  do the line trace
+	bool DidTrace = GetWorld()->LineTraceSingleByChannel(
+		*RV_Hit,        //result
+		Start,        //start
+		End,        //end
+		ECC_Pawn,    //collision channel
+		*RV_TraceParams
+		);
+
+	return DidTrace;
 }

@@ -34,11 +34,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	class UStaticMeshComponent* Mesh;
 
-	UPROPERTY(VisibleAnywhere)
-	class UPointLightComponent* LeftLight;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	class UParticleSystemComponent* LeftLight;
 
-	UPROPERTY(VisibleAnywhere)
-	class UPointLightComponent* RightLight;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	class UParticleSystemComponent* RightLight;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	class UBoxComponent* BoxComponent;
 
 	
 };

@@ -13,19 +13,28 @@ ACandelabra::ACandelabra()
 	Mesh = this->CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	SetRootComponent(Mesh);
 
-	LeftLight = this->CreateDefaultSubobject<UPointLightComponent>(TEXT("LeftLight"));
+	FVector CandleScale = FVector(0.4f, 0.4f, 0.4f);
+
+	LeftLight = this->CreateDefaultSubobject<UParticleSystemComponent>(TEXT("LeftLight"));
 	LeftLight->SetupAttachment(RootComponent);
-	LeftLight->SetRelativeLocation(FVector(-35.f, 20.f, 36.f));
-	LeftLight->Intensity = 500.f;
+	LeftLight->SetRelativeLocation(FVector(-33.06255f, 21.131275f, 38.799744f));
+	LeftLight->SetWorldScale3D(CandleScale);
 	LeftLight->bVisible = false;
 	LeftLight->SetMobility(EComponentMobility::Stationary);
 
-	RightLight = this->CreateDefaultSubobject<UPointLightComponent>(TEXT("RightLight"));
+	RightLight = this->CreateDefaultSubobject<UParticleSystemComponent>(TEXT("RightLight"));
 	RightLight->SetupAttachment(RootComponent);
-	RightLight->SetRelativeLocation(FVector(35.f, 20.f, 36.f));
-	RightLight->Intensity = 500.f;
+	RightLight->SetRelativeLocation(FVector(33.876526f, 20.970655f, 39.f));
+	RightLight->SetWorldScale3D(CandleScale);
 	RightLight->bVisible = false;
 	RightLight->SetMobility(EComponentMobility::Stationary);
+
+	BoxComponent = this->CreateDefaultSubobject<UBoxComponent>(TEXT("BoxCollision"));
+	BoxComponent->SetupAttachment(RootComponent);
+	BoxComponent->SetCollisionProfileName(TEXT("BlockAll"));
+	BoxComponent->SetRelativeLocation(FVector(0.f, 15.f, 14.f));
+	BoxComponent->SetWorldScale3D(FVector(1.2f, 0.5f, 0.8f));
+
 }
 
 // Called when the game starts or when spawned
@@ -55,7 +64,7 @@ void ACandelabra::WhenTriggered(uint8 triggerID)
 void ACandelabra::LightCandles()
 {
 	GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Black, "Lights on!");
-	LeftLight->ToggleVisibility();
-	RightLight->ToggleVisibility();
+	LeftLight->SetVisibility(true);
+	RightLight->SetVisibility(true);
 }
 
