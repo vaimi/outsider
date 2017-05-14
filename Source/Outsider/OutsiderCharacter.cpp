@@ -9,6 +9,7 @@
 #include "MotionControllerComponent.h"
 #include "Engine.h"
 #include "Candelabra.h"
+#include "FlintSteel.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
@@ -42,6 +43,7 @@ AOutsiderCharacter::AOutsiderCharacter()
 
 	// Uncomment the following line to turn motion controllers on by default:
 	//bUsingMotionControllers = true;
+
 }
 
 void AOutsiderCharacter::BeginPlay()
@@ -168,12 +170,20 @@ void AOutsiderCharacter::UseFS()
 	FHitResult RV_Hit(ForceInit);
 	FCollisionQueryParams RV_TraceParams = FCollisionQueryParams(FName(TEXT("RV_Trace")), true, this);
 	DoTrace(&RV_Hit, &RV_TraceParams);
+
 	ACandelabra* candelabra = Cast<ACandelabra>(RV_Hit.GetActor());
-	if(candelabra)
+	if(candelabra && this->HasFS == true)
 	{
 		OnCandleLighted.Broadcast(candelabra->CandleID);
 	}
 
+	AFlintSteel* flintsteel = Cast<AFlintSteel>(RV_Hit.GetActor());
+	if(flintsteel)
+	{
+		this->HasFS = true;
+		flintsteel->PickUp();
+		GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Black, "Picked up flint and steel");
+	}
 	
 }
 

@@ -85,7 +85,10 @@ public:
 	FORCEINLINE class UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
-		float PlayerInteractionDistance = 1.f;
+		float PlayerInteractionDistance = 1000.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+		bool HasFS = false;
 
 	void UseFS();
 };
