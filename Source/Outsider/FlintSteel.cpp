@@ -11,20 +11,20 @@ AFlintSteel::AFlintSteel()
 	PrimaryActorTick.bCanEverTick = true;
 
 	Flint = this->CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Flint"));
-	Flint->SetWorldScale3D(FVector(0.15f, 0.15f, 0.15f));
+	Flint->SetRelativeScale3D(FVector(0.15f, 0.15f, 0.15f));
 	SetRootComponent(Flint);
 	
 	Steel = this->CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Steel"));
-	Steel->SetRelativeLocation(FVector(45.065102f, 0.f, 21.83375f));
-	Steel->SetRelativeRotation(FRotator(69.86013f, 60.21883f, -7.505371f));
-	Steel->SetWorldScale3D(FVector(10.f, 10.f, 10.f));
+	Steel->SetRelativeLocation(FVector(38.024086f, 0.f, 24.224854));
+	Steel->SetRelativeRotation(FRotator(-79.631104, 56.957699, 12.967331f));
+	Steel->SetRelativeScale3D(FVector(10.f, 10.f, 10.f));
 	Steel->SetupAttachment(RootComponent);
 
 	BoxComponent = this->CreateDefaultSubobject<UBoxComponent>(TEXT("BoxCollision"));
 	BoxComponent->SetupAttachment(RootComponent);
 	BoxComponent->SetCollisionProfileName(TEXT("BlockAll"));
 	BoxComponent->SetRelativeLocation(FVector(30.527344f, 0.23112f, 24.209034f));
-	BoxComponent->SetWorldScale3D(FVector(1.875f, 1.5f, 0.7f));
+	BoxComponent->SetRelativeScale3D(FVector(1.875f, 1.5f, 0.7f));
 }
 
 // Called when the game starts or when spawned
