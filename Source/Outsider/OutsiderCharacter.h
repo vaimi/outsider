@@ -77,10 +77,15 @@ protected:
 	virtual void SetupPlayerInputComponent(UInputComponent* InputComponent) override;
 	// End of APawn interface
 
+	bool DoTrace(FHitResult* RV_Hit, FCollisionQueryParams* RV_TraceParams);
+
 public:
 
 	/** Returns FirstPersonCameraComponent subobject **/
 	FORCEINLINE class UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+		float PlayerInteractionDistance = 1.f;
 
 	void UseFS();
 };
