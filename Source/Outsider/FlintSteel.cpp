@@ -16,15 +16,15 @@ AFlintSteel::AFlintSteel()
 	
 	Steel = this->CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Steel"));
 	Steel->SetRelativeLocation(FVector(38.024086f, 0.f, 24.224854));
-	Steel->SetRelativeRotation(FRotator(-79.631104, 56.957699, 12.967331f));
+	Steel->SetRelativeRotation(FRotator(56.957699f, 12.967331f, -79.631104f));
 	Steel->SetRelativeScale3D(FVector(10.f, 10.f, 10.f));
 	Steel->SetupAttachment(RootComponent);
 
 	BoxComponent = this->CreateDefaultSubobject<UBoxComponent>(TEXT("BoxCollision"));
 	BoxComponent->SetupAttachment(RootComponent);
 	BoxComponent->SetCollisionProfileName(TEXT("BlockAll"));
-	BoxComponent->SetRelativeLocation(FVector(30.527344f, 0.23112f, 24.209034f));
-	BoxComponent->SetRelativeScale3D(FVector(1.875f, 1.5f, 0.7f));
+	BoxComponent->SetRelativeLocation(FVector(30.527344f, 0.23112f, 65.f));
+	BoxComponent->SetRelativeScale3D(FVector(3.4f, 3.4f, 2.f));
 }
 
 // Called when the game starts or when spawned

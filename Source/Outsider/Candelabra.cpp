@@ -58,7 +58,7 @@ void ACandelabra::Tick(float DeltaTime)
 
 void ACandelabra::WhenTriggered(uint8 triggerID)
 {
-	if (triggerID == this->CandleID) LightCandles();
+	if (triggerID == this->CandleID) this->LightCandles();
 }
 
 void ACandelabra::LightCandles()
