@@ -66,12 +66,11 @@ void UDoor::OpenAngle()
 
 void UDoor::WhenTriggered(uint8 triggerID)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Black, "Got a broadcast");
 	for (auto& trigger : Triggers)
 	{
 		if (trigger == triggerID)
 		{
-			CompletedTriggers.Add(trigger);
+			CompletedTriggers.AddUnique(trigger);
 		}
 	}
 	if (CompletedTriggers.Num() == Triggers.Num())
