@@ -14,6 +14,14 @@ UDoor::UDoor()
 	PrimaryComponentTick.bCanEverTick = true;
 
 	// ...
+	
+
+	DoorAudioComponent = CreateDefaultSubobject<UAudioComponent>(
+		TEXT("Audio Component")
+	);
+
+	DoorAudioComponent->bAutoActivate = false;
+
 }
 
 
@@ -36,13 +44,24 @@ void UDoor::BeginPlay()
 void UDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
+	if (this->rotate)
+	{
+		this->currentAngle += this->rotationRate * DeltaTime;
+		if (currentAngle < this->rotationEnd)
+		{
+			currentAngle = this->rotationEnd;
+			this->rotate = false;
+		}
+		GetOwner()->SetActorRotation(FRotator(0.f, currentAngle, 0.f));
+	}
 	// ...
 }
 
 void UDoor::OpenAngle()
 {
-	GetOwner()->SetActorRotation(FRotator(0.f, 90.f, 0.f));
+	this->rotationEnd = -90.f;
+	this->rotationRate = this->rotationEnd/2.5;
+	this->rotate = true;
 }
 
 void UDoor::WhenTriggered(uint8 triggerID)
@@ -57,6 +76,7 @@ void UDoor::WhenTriggered(uint8 triggerID)
 	}
 	if (CompletedTriggers.Num() == Triggers.Num())
 	{
+		this->DoorAudioComponent->Play();
 		this->OpenAngle();
 	}
 }

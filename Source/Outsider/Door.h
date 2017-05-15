@@ -28,7 +28,15 @@ public:
 
 	TArray<uint8> CompletedTriggers;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	UAudioComponent* DoorAudioComponent;
+
 	void OpenAngle();
+	
+	float rotationRate;
+	float rotationEnd;
+	float currentAngle = 0.f; 
+	bool rotate = false;
 
 	UFUNCTION()
 		void WhenTriggered(uint8 triggerID);
