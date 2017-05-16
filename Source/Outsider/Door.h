@@ -30,6 +30,12 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	UAudioComponent* DoorAudioComponent;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	UAudioComponent* WindAudioComponent;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	float WaitBeforeOpen = 300;
 
 	void OpenAngle();
 	
